@@ -1,0 +1,723 @@
+<?php echo "helloWorld";?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIM | Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Fira+Sans:wght@400;700&display=swap');
+        
+        :root {
+            --primary-glass: linear-gradient(to bottom, #2dd4bf 0%, #0d9488 100%);
+            --header-glass: linear-gradient(to bottom, #5f9ea0 0%, #3e6b6d 100%);
+            --bg-page: #e9eaed; 
+            --text-main: #333;
+            --white: #ffffff;
+            --border-color: #ccc;
+        }
+
+        body {
+            font-family: "Alan Sans", "Trebuchet MS", sans-serif;
+            background-color: var(--bg-page);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Bar Estilo 2013 */
+        header.top-bar {
+            background: var(--header-glass);
+            border-bottom: 2px solid #2d5052;
+            padding: 0.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-area h1 {
+            font-size: 1.8rem;
+            color: white;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            cursor: pointer;
+            font-weight: 900;
+        }
+
+        .logo-area p {
+            font-size: 0.75rem;
+            color: #e0f2f1;
+            font-weight: normal;
+            margin: -5px 0 0 0;
+        }
+
+        .search-bar {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+            padding: 0.3rem 0.8rem;
+            display: flex;
+            align-items: center;
+            width: 30rem;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: white;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #e0f2f1;
+        }
+
+        .user-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .user-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Layout Principal */
+        .container {
+            display: grid;
+            grid-template-columns: 200px 1fr 250px;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 1rem auto;
+            width: 100%;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        /* Sidebar Esquerda */
+        .sidebar-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            background: #f6f7f8;
+            border: 1px solid #ddd;
+            padding: 0.6rem;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #444;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            background: #ebedef;
+        }
+
+        .nav-item.active {
+            background: #dfe3ee;
+            border-color: #999;
+            color: #1e8a7d;
+        }
+
+        /* Conteúdo Central Dinâmico */
+        .content-area {
+            display: none; /* Escondido por padrão */
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .content-area.active {
+            display: flex; /* Mostra apenas a ativa */
+        }
+
+        /* Estilo dos Cards de Conteúdo */
+        .content-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .content-card h2 {
+            margin-top: 0;
+            color: #3b5998;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Feed Central (Específico) */
+        .post-box {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .post-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            color: #0d9488;
+        }
+
+        textarea {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0.5rem;
+            font-family: inherit;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 0.5rem;
+        }
+
+        .btn-post {
+            background: linear-gradient(to bottom, #2dd4bf 0%, #0d9488 100%);
+            border: 1px solid #1a7a6e;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 3px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .btn-post:hover {
+            background: linear-gradient(to bottom, #3ce2cd 0%, #27aa9a 100%);
+        }
+
+        .btn-post:active{
+            background: linear-gradient(to bottom, #2dd4bf 0%, #0d9488 100%);
+        }
+
+
+        .post {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .post-user-info {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .avatar-small {
+            width: 40px;
+            height: 40px;
+            background: #5f9ea0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        /* Sidebar Direita */
+        .sidebar-right {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            height: fit-content;
+            overflow: hidden;
+            position: sticky;
+            top: 70px;
+        }
+
+        .sidebar-title {
+            background: #f6f7f8;
+            padding: 0.6rem;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .contact-list, .submenu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .contact-item, .submenu-item {
+            padding: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .contact-item:hover, .submenu-item:hover {
+            background: #f9f9f9;
+        }
+
+        .status-online {
+            width: 8px;
+            height: 8px;
+            background: #42b72a;
+            border-radius: 50%;
+        }
+
+        .recent_contacts{
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        /* Novos estilos para os submenus de vídeo */
+        .video-submenu-icon {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+        #subtext{
+            color: #666;
+        }
+                .post-video-container {
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .video-display {
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            font-size: 0.8rem;
+            background: #1a1a1a;
+        }
+
+        .video-controls {
+            background: linear-gradient(to bottom, #444, #111);
+            height: 35px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 10px;
+            border-top: 1px solid #555;
+        }
+
+        .ctrl-btn {
+            color: #ccc;
+            font-size: 0.9rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .ctrl-btn:hover {
+            color: white;
+        }
+
+        .video-progress-container {
+            flex-grow: 1;
+            height: 6px;
+            background: #333;
+            border: 1px solid #000;
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .video-progress-bar {
+            width: 65%;
+            height: 100%;
+            background: #cc0000; /* Vermelho YouTube */
+            border-right: 2px solid #fff;
+        }
+
+        .video-time {
+            color: #ccc;
+            font-size: 0.7rem;
+            font-family: monospace;
+        }
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar-left, .sidebar-right {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <div class="logo-area">
+            <h1 onclick="showTab('feed')">LIM</h1>
+            <p>Lazy Instant Messenger&trade;</p>
+        </div>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Pesquisar no LIM...">
+        </div>
+
+        <nav class="user-nav">
+            <a onclick="showTab('feed')">Início</a>
+            <a href="#">Perfil</a>
+            <a href="#">Sair</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Menu Lateral -->
+        <aside class="sidebar-left">
+            <div class="nav-item active" onclick="showTab('feed', this)">🏠 Início</div>
+            <div class="nav-item" onclick="showTab('mensagens', this)">💬 Mensagens</div>
+            <div class="nav-item" onclick="showTab('posts', this)">💬 Posts</div>
+            <div class="nav-item" onclick="showTab('videos', this)">📺 Vídeos</div>
+            <div class="nav-item" onclick="showTab('aovivo', this)">🎬 Ao-vivo</div>
+            <div class="nav-item" onclick="showTab('jogos', this)">🎮 Jogos</div>
+            <div class="nav-item" onclick="showTab('musica', this)">🎧 Músicas</div>
+            <div class="nav-item" onclick="showTab('galeria', this)">🎆 Galeria</div>
+            <div class="nav-item" onclick="showTab('biblioteca', this)">📚 Biblioteca</div>
+            <div class="nav-item" onclick="showTab('biblioteca', this)">📚 Fóruns</div>
+            <div class="nav-item" onclick="showTab('biblioteca', this)">📚 Grupos</div>
+            <div class="nav-item" onclick="showTab('biblioteca', this)">📚 Comunidades</div>
+            <div class="nav-item" onclick="showTab('definicoes', this)">⚙️ Definições</div>
+        </aside>
+
+        <!-- Seções de Conteúdo Central -->
+        <section id="main-content">
+            
+            <!-- ABA: FEED -->
+            <div id="feed" class="content-area active">
+                <div class="content-card">
+
+                    <div class="recent_contacts">
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                    </div>
+                </div>
+
+                <article class="post">
+                    <div class="post-user-info">
+                        <div class="avatar-small"><img src="https://i.pravatar.cc/150?u=2" alt="avatar"></div>
+                        <div>
+                            <div style="font-weight: bold; color: #3b5998;">vlog_gabs@lim.com</div>
+                            <div style="font-size: 0.75rem; color: #999;">Há 15 minutos</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        Minha nova rotina de café da manhã. Bem calmo para começar o dia no estilo Lazy. ☕
+                        <div class="post-media post-video-container">
+                            <div class="video-display">
+                                [ Coffee_Morning_Vlog.mp4 ]
+                            </div>
+                            <!-- Barra de Controles Estilo YouTube 2013 -->
+                            <div class="video-controls">
+                                <div class="ctrl-btn">▶</div>
+                                <div class="video-progress-container">
+                                    <div class="video-progress-bar">
+                                      <input type="range">
+                                    </div>
+                                </div>
+                                <div class="video-time">02:14 / 03:45</div>
+                                <div class="ctrl-btn">🔊</div>
+                                <div class="ctrl-btn">🔲</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="post">
+                    <div class="post-user-info">
+                        <div class="avatar-small"></div>
+                        <div>
+                            <div style="font-weight: bold; color: #3b5998;">jaosilva1123@lim.com</div>
+                            <div style="font-size: 0.75rem; color: #999;">Há 10 minutos</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        Acabei de chegar ao LIM! Alguém para jogar uma partida rápida de xadrez? ♟️ #PreguiçaTotal
+                    </div>
+                </article>
+
+                <article class="post">
+                    <div class="post-user-info">
+                        <div class="avatar-small"></div>
+                        <div>
+                            <div style="font-weight: bold; color: #3b5998;">marii_pet@lim.com</div>
+                            <div style="font-size: 0.75rem; color: #999;">Há 20 minutos</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        Gatos são como poeira, entra em qualquer lugar...
+                    </div>
+                </article>
+                <article class="post">
+                    <div class="post-user-info">
+                        <div class="avatar-small"></div>
+                        <div>
+                            <div style="font-weight: bold; color: #3b5998;">thegamerana@lim.com</div>
+                            <div style="font-size: 0.75rem; color: #999;">Há 2 Horas</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        Review da Live do LazyIM ontem: "Simplesmente incrível! A interface retrô traz uma nostalgia única, e a comunidade é super acolhedora. Mal posso esperar pela próxima sessão!" 🎮✨
+                    </div>
+                </article>
+            </div>
+
+            <!-- ABA: MENSAGENS -->
+            <div id="mensagens" class="content-area">
+                <div class="content-card">
+                    <h2>Mensagens</h2>
+                    <h3 id="subtext">Contatos Recentes</h3>
+                    <div class="recent_contacts">
+                        <div style="min-width:6rem; height:6rem; background:#444; border-radius:8px; color:white; display:flex; align-items:center; justify-content:center;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h2>Suas Conversas</h2>
+                    <p>Você não tem novas mensagens no momento.</p>
+                    <button class="btn-post">Nova Mensagem</button>
+                </div>
+            </div>
+
+            <!--ABA: POSTS-->
+            <div id="posts" class="content-area">
+                <div class="post-box">
+                    <div class="post-header">Criar um Post</div>
+                    <textarea rows="3" placeholder="Seja criativo!"></textarea>
+                    <div class="post-actions">
+                        <button class="btn-post">Publicar</button>
+                    </div>
+                </div>
+                <div class="content-card">
+
+                    <div class="recent_contacts">
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                        <div style="width:6rem;height: 6rem;background-color: #444;border-radius: 8px;">Amigo1</div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h2>Postagens Recentes</h2>
+                    <p>Você não tem novas postagens no momento.</p>
+                    <button class="btn-post">Nova Mensagem</button>
+                </div>
+            </div>
+
+            <!-- ABA: VÍDEOS -->
+            <div id="videos" class="content-area">
+                <div class="content-card">
+                    <h2>Vídeos na LIM</h2>
+                    <p>Confira o que está rolando ao vivo agora na rede.</p>
+                </div>
+                <div class="post-box">
+                <div class="post-header">Categorias</div>
+                <div class="categories_selection">
+                    <button class="btn-post">Principais</button>
+                    <button class="btn-post">Tutoriais</button>
+                    <button class="btn-post">Gameplay</button>
+                    <button class="btn-post">Vlogs</button>
+                    <button class="btn-post">Música</button>
+                    <button class="btn-post">Comédia</button>
+                </div>
+                </div>
+            </div>
+
+            <!-- ABA: AO-VIVO -->
+            <div id="aovivo" class="content-area">
+                <div class="content-card">
+                    <h2>Lives ao vivo na LIM</h2>
+                    <p>Confira o que está rolando ao vivo agora na rede.</p>
+                    <div style="background: #000; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white;">
+                        [Reprodutor de Vídeo Retrô]
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA: JOGOS -->
+            <div id="jogos" class="content-area">
+                <div class="content-card">
+                    <h2>Central de Jogos LIM</h2>
+                    <p>Desafie seus amigos em clássicos instantâneos.</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 10px; border-bottom: 1px solid #eee;">♟️ Xadrez Rápido</li>
+                        <li style="padding: 10px; border-bottom: 1px solid #eee;">🃏 Paciência Online</li>
+                        <li style="padding: 10px;">🧱 Tetris Lazy Edition</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ABA: MUSICA -->
+            <div id="musica" class="content-area">
+                <div class="content-card">
+                    <h2>Músicas na LIM</h2>
+                    <p>Relaxe e curta as produções de milhares de pessoas!</p>
+                    <div style="background: #000; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white;">
+                        [Reprodutor de Vídeo Retrô]
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA: GALERIA -->
+            <div id="galeria" class="content-area">
+                <div class="content-card">
+                    <h2>Galeria da LIM</h2>
+                    <p>Veja seus albums e fotos favoritos, públicos ou não</p>
+                    <div style="background: #000; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white;">
+                        [Reprodutor de Vídeo Retrô]
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABA: BIBLIOTECA -->
+            <div id="biblioteca" class="content-area">
+                <div class="content-card">
+                    <h2>Sua Biblioteca</h2>
+                    <p>Arquivos, fotos e mídias salvas na sua conta.</p>
+                </div>
+            </div>
+
+            <!-- ABA: DEFINIÇÕES -->
+            <div id="definicoes" class="content-area">
+                <div class="content-card">
+                    <h2>Configurações</h2>
+                    <p>Gerencie sua privacidade e aparência do Dashboard.</p>
+                    <ul style="list-style-type: square;">
+                        <li><a style="text-decoration: none; color: #3b5998;"href="./m/index.html">Modo Moderno - "Web 3.0" (BETA)</a></li>
+                        <li>Ativar modo Flat</li>
+                        <li>Modificar meus LIMStickers</li>
+                        <li>Configurações de Contatos</li>
+                        <li>Teste</li>
+                        <li>Teste</li>
+                        <li>Teste</li>
+                        <br>
+                        <li><- Sair</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+         <!-- Sidebar Direita Dinâmica -->
+        <aside class="sidebar-right" id="dynamic-sidebar">
+            <!-- Painel de Amigos (Padrão) -->
+            <div id="panel-friends">
+                <div class="sidebar-title">Amigos Online (5)</div>
+                <ul class="contact-list">
+                    <li class="contact-item"><div class="status-online"></div> rickkolv@lim.com</li>
+                    <li class="contact-item"><div class="status-online"></div> thegamerana@lim.com</li>
+                    <li class="contact-item"><div class="status-online" style="background:#ccc;"></div> peddrsnt@lim.com</li>
+                    <li class="contact-item"><div class="status-online"></div> menndx6744@lim.com</li>
+                    <li class="contact-item"><div class="status-online"></div> priscii@lim.com</li>
+                </ul>
+            </div>
+
+            <!-- Painel de Vídeos (Submenus) -->
+            <div id="panel-videos" style="display: none;">
+                <div class="sidebar-title">Menu de Vídeos</div>
+                <ul class="submenu-list">
+                    <li class="submenu-item"><span class="video-submenu-icon">📈</span> Tendências</li>
+                    <li class="submenu-item"><span class="video-submenu-icon">🕒</span> Histórico</li>
+                    <li class="submenu-item"><span class="video-submenu-icon">📁</span> Meus Vídeos</li>
+                    <li class="submenu-item"><span class="video-submenu-icon">⭐</span> Favoritos</li>
+                    <li class="submenu-item" style="margin-top: 10px; border-top: 1px solid #ddd; font-weight: bold; color: #0d9488;">
+                        <span class="video-submenu-icon">➕</span> Enviar Vídeo
+                    </li>
+                </ul>
+                <div class="sidebar-title" style="border-top: 1px solid #ddd; margin-top: 5px;">Canais Seguidos</div>
+                <ul class="submenu-list">
+                    <li class="submenu-item">Culinária Lazy</li>
+                    <li class="submenu-item">Retro Dev</li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <footer style="text-align: center; padding: 1rem; color: #888; font-size: 0.8rem;">
+        © 2025-2026 LIM
+    </footer>
+
+    <script>
+        function showTab(tabId, element) {
+            // 1. Esconde todas as áreas de conteúdo
+            const contents = document.querySelectorAll('.content-area');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // 2. Remove a classe 'active' de todos os itens do menu
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // 3. Mostra a aba clicada
+            const activeContent = document.getElementById(tabId);
+            if (activeContent) activeContent.classList.add('active');
+
+            // 4. Marca o item do menu como ativo
+            if (element) {
+                element.classList.add('active');
+            } else {
+                // Fallback para quando clica na logo
+                const firstItem = document.querySelector('.nav-item');
+                if (firstItem) firstItem.classList.add('active');
+            }
+
+            // --- LÓGICA DO PAINEL DIREITO ---
+            const friendsPanel = document.getElementById('panel-friends');
+            const videosPanel = document.getElementById('panel-videos');
+
+            if (tabId === 'videos') {
+                friendsPanel.style.display = 'none';
+                videosPanel.style.display = 'block';
+            } else {
+                friendsPanel.style.display = 'block';
+                videosPanel.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
