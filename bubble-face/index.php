@@ -39,24 +39,6 @@
         </div>
     </section>
 
-    <section class="features">
-        <div class="feature-card">
-            <span class="icon">💬</span>
-            <h3>Chat Instantâneo</h3>
-            <p>Converse com seus amigos em tempo real sem interrupções.</p>
-        </div>
-        <div class="feature-card">
-            <span class="icon">🎵</span>
-            <h3>Música Partilhada</h3>
-            <p>Sincronize sua playlist e ouça o que seus amigos estão ouvindo.</p>
-        </div>
-        <div class="feature-card">
-            <span class="icon">📺</span>
-            <h3>Salas de Vídeo</h3>
-            <p>Assista a lives e vídeos em conjunto em salas privadas ou públicas.</p>
-        </div>
-    </section>
-
     <footer>
         <p>&copy; 2026 ShinyBubble & Project Imagine.</p>
         <div style="margin-top: 15px;">
