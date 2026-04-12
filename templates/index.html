@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bubblerchat | home</title>
+    <link rel="icon" href="http://localhost/p_lim_images/faviconb.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playwrite+IE:wght@100..400&family=Schoolbell&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-glass: linear-gradient(to bottom, #6c36e9 0%, #550d94 100%);
+            --secondary-glass: linear-gradient(to bottom, #7d5fa0 0%, #5a4680 100%);
+            --bg-page: radial-gradient(circle, #5527aa 0%, #6a1e8a 100%);
+            --btn-static: linear-gradient(to bottom, #9f5ce2 0%, #5b42c8 100%);
+            --btn-hover: linear-gradient(to bottom, #b285de 0%, #826fd6 100%);
+            --text-main: #222;
+            --white: #ffffff;
+            --border: #682ea9;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: "Outfit", "Trebuchet MS", sans-serif;
+            background: var(--bg-page);
+            background-attachment: fixed;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-main);
+            zoom: 90%;
+        }
+
+        /* Header Estilo 2012 */
+        header.top-bar {
+            background: var(--primary-glass);
+            border-bottom: 3px solid #682ea9;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header.top-bar .logo h1{
+            font-family: "Playwrite IE", sans-serif;
+            color: white;
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            letter-spacing: -1px;
+            font-weight: 900;
+        }
+
+        /* Sidebar Visual */
+        .visual-side {
+            background: #eef2f3;
+            border-right: 1px solid #ccc;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .visual-side h2 {
+            font-size: 1.5rem;
+            color: #5f9ea0;
+            margin-top: 1rem;
+        }
+
+        #lazybg {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            border: 4px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background: white;
+        }
+
+        .logo p {
+            font-size: 0.75rem;
+            color: #e0f2f1;
+            font-weight: normal;
+            margin: -5px 0 0 0;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover:not(.btn-register) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Botão com profundidade 3D mas sem brilho */
+        .btn-register {
+            font-family: "Schoolbell", sans-serif;
+            border: 1px solid var(--border);
+            transition: all 0.0s;
+            text-decoration: none;
+            padding: 0.8rem;
+            background: var(--btn-static);
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .btn-register:hover {
+            background: var(--btn-hover);
+        }
+
+        .btn-register:active {
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+            transform: translateY(1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #ffffff;
+            border-bottom: 3px solid #abaeb2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            padding: 40px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+
+        .hero-text h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: #385593;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            font-weight: 900;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border: 6px solid white;
+        }
+
+        /* Features Grid Responsivo */
+        .features {
+            padding: 40px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            background-color: #e9eaed;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card .icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: var(--brand-blue);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.4;
+            font-size: 0.95rem;
+        }
+
+        /* Rodapé Mobile-First */
+        footer {
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 0.85rem;
+            margin-top: auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 8px;
+            display: inline-block;
+            padding: 5px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-info {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            text-align: center;
+            color: #666;
+        }
+
+        .footer-info a {
+            color: #0d9488;
+            font-weight: bold;
+        }
+
+        @media (max-width: 640px) {
+            header.top-bar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+
+            .hero {
+                padding: 30px 5%;
+                text-align: center;
+            }
+
+            .hero-text h2 br {
+                display: none; /* Remove quebras de linha forçadas no mobile */
+            }
+
+            .hero-text p br {
+                display: none;
+            }
+
+            .hero-text .btn-register {
+                display: block;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .features {
+                padding: 30px 5%;
+            }
+
+            footer div {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <header class="top-bar">
+
+        <div class="logo" style="text-align:center;">
+            <h1>bubblerchat</h1>
+        </div>
+
+        <nav class="nav-links">
+            <a href="/about/">Sobre</a>
+            <a href="/auth/">Entrar</a>
+            <a href="/auth/" class="btn-register">Criar conta bubble.chat!</a>
+        </nav>
+
+    </header>
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <h2>Conecte-se com <br> liberdade total.</h2>
+            <p>A rede social para quem valoriza simplicidade, autenticidade <br> e 
+            bons momentos com amigos e todo mundo. Não perca tempo! <br> crie uma conta 
+            <strong>@bubble.chat</strong> e veja o que as pessoas estão fazendo <br> em 
+            suas bolhas nesse exato momento.</p>
+            
+            <div class="align-testing">
+                <a href="./auth/" class="btn-register" style="font-size: 1.2rem;">Começar na bubblerchat!</a>
+            </div>
+            <p style="font-size: 0.8rem">Tem uma conta?, faça <a href="#">login</a></p>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="[Imagem de Conectividade]">
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <p>&copy; <span id="ano-atual"></span> Projeto ShinyBubble & Projeto Imagine.</p>
+        <div style="margin-top: 15px;">
+
+            <a href="/privacy/">Privacidade</a> | 
+            <a href="/terms/">Termos de Uso</a> | 
+            <a href="/help/">Ajuda</a> | 
+            <a href="/blog/">Blog</a>
+
+        </div>
+
+    </footer>
+
+    <script>
+    document.getElementById('ano-atual').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
