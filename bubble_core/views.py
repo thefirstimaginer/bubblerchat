@@ -5,3 +5,6 @@ from django.http import HttpResponse
 
 def index(request):
 	return render(request, 'index.html')
+
+def challenge(request):
+	return render(request, 'challenge.html')

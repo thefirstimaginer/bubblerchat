@@ -1,0 +1,73 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[autenticar | bubblerchat]</title>
+    <link rel="icon" href="http://localhost/p_lim_images/faviconb.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playwrite+IE:wght@100..400&family=Schoolbell&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/index.css' %}">
+
+</head>
+<body>
+
+    <header class="top-bar">
+
+        <div class="logo" style="text-align:center;">
+            <h1>bubblerchat</h1>
+        </div>
+
+        <nav class="nav-links">
+            <a href="/help/">Ajuda</a>
+            <a href="/auth/">Entrar</a>
+            <a href="/auth/" class="btn-register">Criar conta bubble.chat!</a>
+        </nav>
+
+    </header>
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <h2>Criar ou Entrar!</h2>
+            <p>Em Construção</p>
+            
+            <div class="align-testing">
+                <a href="/auth/" class="btn-register" style="font-size: 1.2rem;">Começar na bubblerchat!</a>
+            </div>
+            <p style="font-size: 0.8rem">Tem uma conta?, faça <a href="#">login</a></p>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="[Imagem de Conectividade]">
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <p>&copy; <span id="ano-atual"></span> Projeto ShinyBubble & Projeto Imagine.</p>
+        <div style="margin-top: 15px;">
+
+            <a href="/privacy/">Privacidade</a> | 
+            <a href="/terms/">Termos de Uso</a> | 
+            <a href="/about/">Sobre</a> | 
+            <a href="/blog/">Blog</a>
+
+        </div>
+
+    </footer>
+
+    <script>
+    document.getElementById('ano-atual').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
