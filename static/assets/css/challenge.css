@@ -26,7 +26,6 @@ body {
     zoom: 90%;
 }
 
-/* Header Estilo 2012 */
 header.top-bar {
     background: var(--primary-glass);
     border-bottom: 3px solid #682ea9;
@@ -50,41 +49,6 @@ header.top-bar .logo h1{
     font-weight: 900;
 }
 
-/* Sidebar Visual */
-.visual-side {
-    background: #eef2f3;
-    border-right: 1px solid #ccc;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.visual-side h2 {
-    font-size: 1.5rem;
-    color: #5f9ea0;
-    margin-top: 1rem;
-}
-
-#lazybg {
-    width: 150px;
-    height: 150px;
-    border-radius: 15px;
-    border: 4px solid white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    background: white;
-}
-
-.logo p {
-    font-size: 0.75rem;
-    color: #e0f2f1;
-    font-weight: normal;
-    margin: -5px 0 0 0;
-    white-space: nowrap;
-}
-
 .nav-links {
     display: flex;
     gap: 12px;
@@ -104,11 +68,9 @@ header.top-bar .logo h1{
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Botão com profundidade 3D mas sem brilho */
 .btn-register {
     font-family: "Schoolbell", sans-serif;
     border: 1px solid var(--border);
-    transition: all 0.0s;
     text-decoration: none;
     padding: 0.8rem;
     background: var(--btn-static);
@@ -125,12 +87,6 @@ header.top-bar .logo h1{
     background: var(--btn-hover);
 }
 
-.btn-register:active {
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
-    transform: translateY(1px);
-}
-
-/* Hero Section */
 .hero {
     background: #ffffff;
     border-bottom: 3px solid #abaeb2;
@@ -141,6 +97,7 @@ header.top-bar .logo h1{
     justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
+    min-height: 450px;
 }
 
 .hero-text {
@@ -164,64 +121,66 @@ header.top-bar .logo h1{
     line-height: 1.5;
 }
 
-.hero-image {
-    flex: 1;
-    min-width: 300px;
-    display: flex;
-    justify-content: center;
-}
-
-.hero-image img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    border: 6px solid white;
-}
-
-/* Features Grid Responsivo */
-.features {
-    padding: 40px 5%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    background-color: #e9eaed;
-}
-
-.feature-card {
-    background: white;
+/* Estilos do Formulário */
+.auth-card {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
     border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.input-group input {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: "Outfit", sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #6c36e9;
+}
+
+.auth-toggle {
+    margin-top: 15px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-}
-
-.feature-card .icon {
-    font-size: 45px;
-    margin-bottom: 15px;
-    display: block;
-}
-
-.feature-card h3 {
-    color: var(--brand-blue);
-    margin-bottom: 12px;
-    font-weight: 700;
-}
-
-.feature-card p {
+    font-size: 0.9rem;
     color: #666;
-    line-height: 1.4;
-    font-size: 0.95rem;
 }
 
-/* Rodapé Mobile-First */
+.auth-toggle span {
+    color: #5527aa;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}
+
 footer {
     color: white;
     padding: 1.2rem;
@@ -243,52 +202,13 @@ footer a:hover {
     text-decoration: underline;
 }
 
-.footer-info {
-    margin-top: 1.5rem;
-    font-size: 0.85rem;
-    text-align: center;
-    color: #666;
-}
-
-.footer-info a {
-    color: #0d9488;
-    font-weight: bold;
-}
-
 @media (max-width: 640px) {
     header.top-bar {
-        gap: 15px;
         padding: 1rem;
+        gap: 10px;
     }
-
     .hero {
         padding: 30px 5%;
         text-align: center;
-    }
-
-    .hero-text h2 br {
-        display: none; /* Remove quebras de linha forçadas no mobile */
-    }
-
-    .hero-text p br {
-        display: none;
-    }
-
-    .hero-text .btn-register {
-        display: block;
-        width: 100%;
-        max-width: 280px;
-        margin: 0 auto;
-    }
-
-    .features {
-        padding: 30px 5%;
-    }
-
-    footer div {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
     }
 }
