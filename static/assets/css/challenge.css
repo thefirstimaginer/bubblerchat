@@ -1,12 +1,12 @@
 :root {
-    --primary-glass: linear-gradient(to bottom, #6c36e9 0%, #550d94 100%);
+    --primary-glass: linear-gradient(to bottom, #31addd 0%, #0d7494 100%);
     --secondary-glass: linear-gradient(to bottom, #7d5fa0 0%, #5a4680 100%);
-    --bg-page: radial-gradient(circle, #5527aa 0%, #6a1e8a 100%);
-    --btn-static: linear-gradient(to bottom, #9f5ce2 0%, #5b42c8 100%);
-    --btn-hover: linear-gradient(to bottom, #b285de 0%, #826fd6 100%);
+    --bg-page: radial-gradient(circle, #2766aa 0%, #1e8a6c 100%);
+    --btn-static: linear-gradient(to bottom, #6baad9 0%, #42c8c2 100%);
+    --btn-hover: linear-gradient(to bottom, #85c1de 0%, #6fd6cc 100%);
     --text-main: #222;
     --white: #ffffff;
-    --border: #682ea9;
+    --border: #2e8ca9;
 }
 
 * {
@@ -23,13 +23,12 @@ body {
     display: flex;
     flex-direction: column;
     color: var(--text-main);
-    zoom: 90%;
 }
 
 header.top-bar {
     background: var(--primary-glass);
-    border-bottom: 3px solid #682ea9;
-    padding: 0.5rem 2rem;
+    border-bottom: 3px solid #4dc5ba;
+    padding: 0rem 4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,14 +38,15 @@ header.top-bar {
     z-index: 1000;
 }
 
-header.top-bar .logo h1{
-    font-family: "Playwrite IE", sans-serif;
+header.top-bar .logo a, h1{
+    font-family: "Playwrite ES", sans-serif;
     color: white;
     font-size: 1.8rem;
     margin: 0;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     letter-spacing: -1px;
     font-weight: 900;
+    text-decoration: none;
 }
 
 .nav-links {
@@ -107,11 +107,12 @@ header.top-bar .logo h1{
 }
 
 .hero-text h2 {
+    font-family: 'Playwrite ES';
     font-size: clamp(1.8rem, 5vw, 2.8rem);
     color: #385593;
     margin-bottom: 15px;
     line-height: 1.1;
-    font-weight: 900;
+    font-weight: 1000;
 }
 
 .hero-text p {

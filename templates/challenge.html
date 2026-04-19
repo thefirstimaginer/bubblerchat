@@ -5,18 +5,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[autenticar | bubblerchat]</title>
+    <title>[ Autenticar | Orbite ]</title>
     <link rel="icon" href="http://localhost/p_lim_images/faviconb.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playwrite+IE:wght@100..400&family=Schoolbell&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playwrite+ES:wght@100..400&family=Playwrite+IE:wght@100..400&family=Schoolbell&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/challenge.css' %}">
 </head>
 <body>
 
     <header class="top-bar">
         <div class="logo">
-            <h1>bubblerchat</h1>
+            <a href="../"><h1>Orbite</h1></a>
         </div>
         <nav class="nav-links">
             <a href="/help/">Ajuda</a>
@@ -26,8 +26,8 @@
 
     <section class="hero">
         <div class="hero-text">
-            <h2 id="auth-title">Entrar na Conta</h2>
-            <p id="auth-desc"><strong>Bem-vindo(a) de volta!</strong> Acesse sua conta para continuar a conversa na rede bubblerchat.</p>
+            <img src="{% static 'assets/images/imagine3.png' %}" style="width: 25vw;"></img>
+            <p id="auth-desc"><strong>Bem-vindo(a) a Orbit!, muitas coisas te esperam aqui! :)</strong></p>
         </div>
 
         <div class="auth-card">
@@ -37,7 +37,7 @@
                 {% csrf_token %}
                 <div class="input-group">
                     <label>Usuário ou E-mail</label>
-                    <input type="text" name="username" placeholder="Digite seu login..." required>
+                    <input type="text" name="username" placeholder="usuário@orbite" required>
                 </div>
                 <div class="input-group">
                     <label>Senha</label>
@@ -54,7 +54,7 @@
                 {% csrf_token %}
                 <div class="input-group">
                     <label>Nome de Usuário</label>
-                    <input type="text" name="username" placeholder="bubbler_example@bubble.im" required>
+                    <input type="text" name="username" placeholder="usuário@orbite" required>
                 </div>
                 <div class="input-group">
                     <label>E-mail</label>
@@ -78,13 +78,7 @@
     </section>
 
     <footer>
-        <p>&copy; <span id="ano-atual"></span> Projeto ShinyBubble & Projeto Imagine.</p>
-        <div style="margin-top: 15px;">
-            <a href="/privacy/">Privacidade</a> | 
-            <a href="/terms/">Termos de Uso</a> | 
-            <a href="/about/">Sobre</a> | 
-            <a href="/blog/">Blog</a>
-        </div>
+        <p>&copy; <span id="ano-atual"></span> Orbite por <strong>Projeto Imagine</strong> - [<a href="/privacy/">Privacidade</a> | <a href="/terms/">Termos de Uso</a> | <a href="/about/">Sobre</a> ]</p>
     </footer>
 
     <script>
@@ -101,20 +95,20 @@
                 loginForm.classList.remove('hidden');
                 registerForm.classList.add('hidden');
                 title.textContent = "Entrar na Conta";
-                desc.innerHTML = "<strong>Bem-vindo(a) de volta!</strong> Acesse sua conta para continuar a conversa na rede bubblerchat.";
+                desc.innerHTML = "<strong>Bem-vindo(a) de volta!</strong> Acesse sua conta para continuar a conversa na rede Orbite.";
             } else {
                 // Mudar para Cadastro
                 loginForm.classList.add('hidden');
                 registerForm.classList.remove('hidden');
                 title.textContent = "Criar nova conta";
-                desc.innerHTML = "<strong>Comece agora mesmo!</strong> Crie sua conta e faça parte da rede bubblerchat hoje.";
+                desc.innerHTML = "<strong>Comece agora mesmo!</strong> Crie sua conta e faça parte da rede Orbite hoje.";
             }
         }
 
         document.getElementById('meuFormulario').addEventListener('submit', function(event) {
             const campo = document.getElementById('username');
             const valor = campo.value;
-            const sufixo = "@bubble.im";
+            const sufixo = "@orbite";
 
             // Verifica se NÃO termina com o sufixo
             if (!valor.endsWith(sufixo)) {
