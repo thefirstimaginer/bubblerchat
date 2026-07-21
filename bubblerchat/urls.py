@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #path('playadmins/', include('playpearl_admin.urls'))
     path('', include('bubble_core.urls'))
 ]
 
